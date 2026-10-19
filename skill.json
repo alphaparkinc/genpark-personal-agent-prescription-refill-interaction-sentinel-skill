@@ -1,0 +1,67 @@
+{
+  "name": "genpark-personal-agent-prescription-refill-interaction-sentinel-skill",
+  "title": "Prescription Refill & Drug Interaction Sentinel Skill",
+  "version": "1.0.0",
+  "description": "Chronic prescription medication schedule tracker, remaining dosage depletion countdown, automated pharmacy refill order triggers, and clinical drug-drug interaction (DDI) severity checker. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "organization": {
+    "name": "GenPark Inc.",
+    "url": "https://www.genpark.ai",
+    "linkedin": "https://www.linkedin.com/company/92955550"
+  },
+  "mcp_version": "2024-11-05",
+  "category": "personal-agent",
+  "tools": [
+    {
+      "name": "track_medication_refill_burn_rate",
+      "description": "Calculate remaining dosage days based on daily frequency, current quantity on hand, and recommend optimal pharmacy refill dispatch date.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "medication_name": {
+            "type": "string"
+          },
+          "pills_remaining": {
+            "type": "integer"
+          },
+          "doses_per_day": {
+            "type": "integer"
+          },
+          "pills_per_dose": {
+            "type": "integer"
+          },
+          "pharmacy_processing_lead_days": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "medication_name",
+          "pills_remaining",
+          "doses_per_day"
+        ]
+      }
+    },
+    {
+      "name": "cross_check_drug_interactions",
+      "description": "Screen concurrent active medications against known contraindicated pharmacology pairs (e.g. blood thinners + NSAIDs, SSRIs + MAOIs).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "current_medications": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "prospective_medication": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "current_medications",
+          "prospective_medication"
+        ]
+      }
+    }
+  ]
+}
